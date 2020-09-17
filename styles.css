@@ -15,7 +15,21 @@ main {
 
 /* Bee */
 /* Animated by swapping background images */
+body {
+  animation: bee 0.15s infinite;
+}
 
+@keyframes bee {
+  0% {
+    cursor: url(assets/bee1.png), auto;
+  }
+  50% {
+    cursor: url(assets/bee2.png), auto;
+  }
+  100% {
+    cursor: url(assets/bee3.png), auto;
+  }
+}
 /* Monster */
 /* Animated by transformations */
 
@@ -24,8 +38,172 @@ main {
   height: 500px;
   overflow: initial;
 }
+.monster .ear-right, .monster .ear-left {
+  transform-box: fill-box;
+}
+.face-scared {
+  opacity: 0;
+}
+.monster .body-upper {
+  animation: bounce 500ms;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+}
+.monster .ear-left {
+  animation: happy-ear-left 500ms;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+  transform-origin: center bottom;
+}
+.monster .ear-right {
+  animation: happy-ear-right 500ms;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+  transform-origin: right bottom;
+}
 
+.monster .face-happy .eye-left .pupil, .monster .face-happy .eye-right .pupil {
+  animation: wiggle-eyes 350ms;
+  transform-box: fill-box;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+}
+@keyframes bounce {
+  0% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(5px);
+  }
+}
+@keyframes happy-ear-left {
+  0% {
+    transform: translateY(-5px) rotate(25deg);
+  }
+  100% {
+    transform: translateY(2px) rotate(0deg);
+  }
+}
+@keyframes happy-ear-right {
+  0% {
+    transform: translateY(-5px) rotate(-25deg);
+  }
+  100% {
+    transform: translateY(2px) rotate(0deg);
+  }
+}
+@keyframes wiggle-eyes {
+  0% {
+    transform: translate(0,0) scale(1);
+  }
+  25% {
+    transform: translate(2px,1px);
+  }
+  50% {
+    transform: translate(1px,2px) scale(.95);
+  }
+  75% {
+    transform: translate(3px,1px);
+  }
+  100% {
+    transform: translate(-1px,-2px) scale(1);
+  }
+}
 /* Monster Scared State on Hover */
+.monster:hover .face-happy {
+  opacity: 0;
+}
+.monster:hover .face-scared {
+  opacity: 1;
+}
+.monster:hover .body-upper {
+  animation: bounce-scared 250ms;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+}
+.monster .face-scared .eye-left, .monster .face-scared .eye-right {
+  animation: wiggle-eyes 350ms;
+  transform-box: fill-box;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+}
+.monster .face-scared .mouth {
+  animation: scared-mouth 150ms;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+}
+.monster:hover .ear-left, .monster:hover .ear-right {
+  animation: scared-ears 100ms;
+  animation-direction: alternate-reverse;
+  animation-iteration-count: infinite;
+  transform-origin: right bottom;
+}
+@keyframes scared-mouth {
+  0% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(1.2);
+  }
+}
+@keyframes bounce-scared {
+  0% {
+    transform: scaleY(1.1) translateY(-40px);
+  }
+  100% {
+    transform: scaleY(1) translateY(-10px);
+  }
+}
+@keyframes scared-ears {
+  0% {
+    transform: translateY(5px) scaleY(1.3) rotate(5deg);
+  }
+  50% {
+    transform: translateY(5px) scaleY(1.3) rotate(-10deg);
+  }
+  100% {
+    transform: translateY(5px) scaleY(1.3) rotate(10deg);
+  }
+}
 
 /* CAT */
 /* Animation using sprites */
+.cat {
+  position: fixed;
+  top: 55vh;
+  animation: cat-moving 10s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  transform: scale(0.7);
+}
+.cat:before {
+  content: "";
+  width: 400px;
+  height: 190px;
+  display: block;
+  background-image: url(assets/sprite_catwalk.png);
+  background-position: center 0;
+  animation: cat-sprite-walking 1100ms;
+  animation-timing-function: steps(12);
+  animation-iteration-count: infinite;
+}
+@keyframes cat-sprite-walking {
+  0% {
+    background-position: center 2280px;
+    left: -30%;
+  }
+  100% {
+    background-position: center 0;
+    left: 100%;
+  }
+}
+@keyframes cat-moving {
+  0% {
+    left: -400px;
+  }
+  100% {
+    left: 100%;
+  }
+}
